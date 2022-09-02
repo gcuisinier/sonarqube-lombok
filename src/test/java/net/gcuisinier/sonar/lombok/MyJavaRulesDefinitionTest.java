@@ -56,7 +56,7 @@ class LombokRulesDefinitionTest {
   private static void assertRuleProperties(Repository repository) {
     Rule rule = repository.rule("Lombok-Synchronized");
     assertThat(rule).isNotNull();
-    assertThat(rule.name()).isEqualTo("Avoid Lombok @Synchronized");
+    assertThat(rule.name()).isEqualTo("Detect Lombok @Synchronized usage");
     assertThat(rule.debtRemediationFunction().type()).isEqualTo(Type.CONSTANT_ISSUE);
     assertThat(rule.type()).isEqualTo(RuleType.CODE_SMELL);
   }

@@ -40,7 +40,7 @@ public class LombokRulesDefinition implements RulesDefinition {
     public static final String REPOSITORY_KEY = "lombok-java";
     public static final String REPOSITORY_NAME = "Lombok Repository";
     // don't change that because the path is hard coded in CheckVerifier
-    private static final String RESOURCE_BASE_PATH = "net/gcuisinier/sonar/lombok/rules/";
+    private static final String RESOURCE_BASE_PATH = "net/gcuisinier/sonar/lombok/rules";
     // Add the rule keys of the rules which need to be considered as template-rules
     private static final Set<String> RULE_TEMPLATES_KEY = Collections.emptySet();
 

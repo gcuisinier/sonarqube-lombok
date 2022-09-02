@@ -28,7 +28,10 @@ public class LombokRulesPlugin implements Plugin {
 
     @Override
     public void define(Context context) {
+        context.addExtension(LombokRulesDefinition.class);
 
+        // batch extensions -> objects are instantiated during code analysis
+        context.addExtension(LombokFileCheckRegistrar.class);
     }
 
 }
