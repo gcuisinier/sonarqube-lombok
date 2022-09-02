@@ -9,7 +9,7 @@
     <packaging>sonar-plugin</packaging>
     <name>SonarQube Lombok Rules</name>
     <description>Java Custom Rules to detect Lombok usages</description>
-    <inceptionYear>2012</inceptionYear>
+    <inceptionYear>2022</inceptionYear>
     <organization>
         <name>gcuisinier</name>
         <url>https://github.com/gcuisinier/</url>
