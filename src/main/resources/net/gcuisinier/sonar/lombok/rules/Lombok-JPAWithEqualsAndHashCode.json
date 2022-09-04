@@ -1,5 +1,5 @@
 {
-  "title": "Detect Lombok Core Annotation usage",
+  "title": "Detect bad pattern when using Lombok @EqualsAndHashCode in JPA Entity",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -9,5 +9,5 @@
   "tags": [
     "pitfall"
   ],
-  "defaultSeverity": "Info"
+  "defaultSeverity": "Minor"
 }

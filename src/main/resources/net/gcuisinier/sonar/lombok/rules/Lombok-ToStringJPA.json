@@ -1,5 +1,5 @@
 {
-  "title": "Detect Lombok Core Annotation usage",
+  "title": "Exclude Lazy Collection from ToString generation",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -7,7 +7,7 @@
     "constantCost": "10min"
   },
   "tags": [
-    "pitfall"
+    "pitfall", "lombok", "performance"
   ],
-  "defaultSeverity": "Info"
+  "defaultSeverity": "Major"
 }

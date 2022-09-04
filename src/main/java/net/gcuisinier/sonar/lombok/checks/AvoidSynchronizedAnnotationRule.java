@@ -29,12 +29,14 @@ import org.sonar.plugins.java.api.tree.*;
 
 import java.util.List;
 
+/**
+ * @author gcuisinier (github.com/gcuisinier/)
+ */
 @Rule(key = "Lombok-Synchronized")
 public class AvoidSynchronizedAnnotationRule extends BaseTreeVisitor implements JavaFileScanner {
 
     public static final String SYNCHRONIZED_ANNOTATION = "lombok.Synchronized";
     private JavaFileScannerContext context;
-
 
     @Override
     public void scanFile(JavaFileScannerContext context) {
@@ -50,7 +52,6 @@ public class AvoidSynchronizedAnnotationRule extends BaseTreeVisitor implements 
             TypeTree annotationType = annotationTree.annotationType();
             if (annotationType.is(Tree.Kind.IDENTIFIER)) {
                 IdentifierTree identifier = (IdentifierTree) annotationType;
-
                 if (SYNCHRONIZED_ANNOTATION.equals(annotationType.symbolType().fullyQualifiedName())) {
                     context.reportIssue(this, identifier, String.format("Avoid using annotation @Synchronized from Lombok"));
                 }

@@ -38,7 +38,7 @@ class AvoidSynchronizedAnnotationRuleTest {
 
         CheckVerifier.newVerifier()
                 .withClassPath(FilesUtils.getClassPath("target/test-jars"))
-                .onFile("src/test/files/AvoidAnnotationRule.java")
+                .onFile("src/test/files/AvoidSynchronizedAnnotationRule.java")
                 .withCheck(rule)
                 .verifyIssues();
     }
