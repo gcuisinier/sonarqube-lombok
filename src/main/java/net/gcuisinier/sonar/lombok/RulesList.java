@@ -23,6 +23,7 @@
 package net.gcuisinier.sonar.lombok;
 
 import net.gcuisinier.sonar.lombok.checks.AvoidSynchronizedAnnotationRule;
+import net.gcuisinier.sonar.lombok.checks.DetectLombokUsageRule;
 import org.sonar.plugins.java.api.JavaCheck;
 
 import java.util.ArrayList;
@@ -47,7 +48,8 @@ public final class RulesList {
      */
     public static List<Class<? extends JavaCheck>> getJavaChecks() {
         return Collections.unmodifiableList(Arrays.asList(
-                AvoidSynchronizedAnnotationRule.class
+                AvoidSynchronizedAnnotationRule.class,
+                DetectLombokUsageRule.class
         ));
     }
 

@@ -36,7 +36,7 @@ class LombokRulesPluginTest {
 
     new LombokRulesPlugin().define(context);
 
-    assertThat(context.getExtensions()).hasSize(2);
+    assertThat(context.getExtensions()).hasSize(3);
   }
   public static class MockedSonarRuntime implements SonarRuntime {
 

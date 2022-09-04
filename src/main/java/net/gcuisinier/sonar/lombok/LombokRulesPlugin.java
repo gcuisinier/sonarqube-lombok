@@ -22,6 +22,7 @@
  */
 package net.gcuisinier.sonar.lombok;
 
+import net.gcuisinier.sonar.lombok.checks.DetectLombokUsageRule;
 import org.sonar.api.Plugin;
 
 public class LombokRulesPlugin implements Plugin {
@@ -29,6 +30,7 @@ public class LombokRulesPlugin implements Plugin {
     @Override
     public void define(Context context) {
         context.addExtension(LombokRulesDefinition.class);
+        context.addExtension(DetectLombokUsageRule.class);
 
         // batch extensions -> objects are instantiated during code analysis
         context.addExtension(LombokFileCheckRegistrar.class);
