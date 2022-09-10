@@ -1,6 +1,6 @@
 {
-  "title": "Detect Lombok Core Annotation usage",
-  "type": "CODE_SMELL",
+  "title": "Avoid Lombok @Data annotations in JPA @Entity",
+  "type": "BUG",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
@@ -9,5 +9,5 @@
   "tags": [
     "pitfall"
   ],
-  "defaultSeverity": "Info"
+  "defaultSeverity": "Minor"
 }
