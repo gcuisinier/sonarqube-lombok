@@ -1,17 +1,17 @@
-SonarQube Java Custom Rules Plugin Template
+SonarQube Rules for Lombok
 =======
 
-This example demonstrates how to write **Custom Rules** for SonarJava.
+A plugin for SonarQube ( >= 8.9 ) that detect Lombok usage and some bad pattern of integration between Lombok and JPA
 
-If you are using SonarQube 8.9 LTS (latest release), use the following command to build it without any dependency to the current project status:
+| Key                             | Description                                                                                 | Default Severity |
+|---------------------------------|---------------------------------------------------------------------------------------------|------------------|
+| Lombok-CoreUsage                | Rule that detects the usage of Lombok annotations                                           | Info             |
+| Lombok-Synchronized             | Rule that detects the usage of @Synchronized annotation                                     | Info             |
+| Lombok-ToStringJPA              | Rule that check that all the Lazy-Loaded collection are not part of the toString generation | Major            |
+| Lombok-JPAWithEqualsAndHashCode | Rule that check that EqualsAndHashCode only use specific field and not all                  | Minor            |
+| Lombok-JPAWithData              | Rule that check that @Data annotation is not used on @Entity classe                         | Minor            |
 
-```
-mvn clean install -f pom_SQ_8_9_LTS.xml
-```
-
-For more details about how to write custom rules, please refer to the official tutorial, [Writing Custom Java Rules 101](../CUSTOM_RULES_101.md).
 
 ### License
 
-The [GNU LGPL 3.0](https://www.gnu.org/licenses/lgpl.txt) license of this GitHub repository does not apply in the `java-custom-rules-example` directory.
-All contents under the `java-custom-rules-example` directory are licensed under the more permissive [MIT No Attribution](LICENSE) license.
+The MIT License (MIT)
