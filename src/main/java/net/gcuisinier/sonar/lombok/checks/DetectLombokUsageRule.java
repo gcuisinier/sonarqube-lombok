@@ -3,7 +3,6 @@ package net.gcuisinier.sonar.lombok.checks;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.semantic.Symbol;
-import org.sonar.plugins.java.api.tree.AnnotationTree;
 import org.sonar.plugins.java.api.tree.ClassTree;
 import org.sonar.plugins.java.api.tree.CompilationUnitTree;
 import org.sonar.plugins.java.api.tree.Tree;
@@ -12,6 +11,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author gcuisinier (github.com/gcuisinier/)
+ */
 @Rule(key = "Lombok-CoreUsage")
 public class DetectLombokUsageRule extends IssuableSubscriptionVisitor {
 
@@ -29,10 +31,10 @@ public class DetectLombokUsageRule extends IssuableSubscriptionVisitor {
 
     public static final List<String> METHOD_ANNOTATIONS = Arrays.asList("lombok.Getter",
             "lombok.Setter",
-            "lombok.ToString.Exclude",
-            "lombok.ToString.Include",
-            "lombok.EqualsAndHashCode.Exclude",
-            "lombok.EqualsAndHashCode.Include",
+            "lombok.ToString$Exclude",
+            "lombok.ToString$Include",
+            "lombok.EqualsAndHashCode$Exclude",
+            "lombok.EqualsAndHashCode$Include",
             "lombok.SneakyThrows",
             "lombok.ToString");
 
@@ -49,6 +51,9 @@ public class DetectLombokUsageRule extends IssuableSubscriptionVisitor {
         cut.types().stream()
                 .filter(typeTree -> typeTree.is(Tree.Kind.CLASS))
                 .forEach(typeTree -> checkClass((ClassTree) typeTree));
+
+        super.visitNode(tree);
+
     }
 
     private void checkClass(ClassTree classTree) {

@@ -10,6 +10,7 @@ A plugin for SonarQube ( >= 8.9 ) that detect Lombok usage and some bad pattern 
 | Lombok-ToStringJPA              | Rule that check that all the Lazy-Loaded collection are not part of the toString generation | Major            |
 | Lombok-JPAWithEqualsAndHashCode | Rule that check that EqualsAndHashCode only use specific field and not all                  | Minor            |
 | Lombok-JPAWithData              | Rule that check that @Data annotation is not used on @Entity classe                         | Minor            |
+=======
 
 
 ### License

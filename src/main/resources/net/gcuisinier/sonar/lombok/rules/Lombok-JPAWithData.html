@@ -1,0 +1,52 @@
+<p>This rule detects usage of Lombok <code>@Data</code> annotation in JPA @Entities</p>
+<p>You should avoid the meta @Data annotation and prefer to use @Getter, @Setter, @ToString annotations instead</p>
+
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@Data
+public  class Entity {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
+    @OneToMany
+    private Set<OtherEntity> relation;
+
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Entity {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
+    @OneToMany
+    @ToString.Exclude
+    private Set<OtherEntity> relation;
+
+}
+
+</pre>
+<h2>See</h2>
+<ul>
+    <li> <a href="https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/#Don8217t_Use_EqualsAndHashCode">Lombok & Hibernate: How to Avoid Common Pitfalls</a> </li>
+</ul>
