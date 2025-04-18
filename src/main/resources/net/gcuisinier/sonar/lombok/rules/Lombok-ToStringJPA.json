@@ -1,0 +1,13 @@
+{
+  "title": "Exclude Lazy Collection from ToString generation",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "pitfall", "lombok", "performance"
+  ],
+  "defaultSeverity": "Major"
+}

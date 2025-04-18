@@ -1,0 +1,14 @@
+{
+  "title": "Avoid Lombok @Builder annotations in classes that extend another class",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "pitfall",
+    "lombok"
+  ],
+  "defaultSeverity": "Major"
+}

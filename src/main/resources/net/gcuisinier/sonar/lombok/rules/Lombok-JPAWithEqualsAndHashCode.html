@@ -1,0 +1,35 @@
+<p>Using <code>@Entity</code> and <code>@EqualsAndHashCode</code> togethers can cause some issues in Collections,
+    and you should not use the default generation and tweak it a little by providing explicitly which field should be used</p>
+<p>Note that <code>@Data</code> annotation is also impacted by this issue as it includes <code>@EqualsAndHashCode</code> functionality.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@EqualsAndHashCode
+public class EntitySample {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class EntitySample {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
+    private Long id;
+
+    private String name;
+
+}
+</pre>
+<h2>See</h2>
+<ul>
+    <li> <a href="https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/#Don8217t_Use_EqualsAndHashCode">Lombok & Hibernate: How to Avoid Common Pitfalls</a> </li>
+</ul>

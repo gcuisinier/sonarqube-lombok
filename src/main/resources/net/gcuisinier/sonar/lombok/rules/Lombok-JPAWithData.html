@@ -1,0 +1,57 @@
+<p>This rule detects usage of Lombok <code>@Data</code> annotation in JPA @Entities.</p>
+<p>Using <code>@Data</code> annotation within JPA <code>@Entity</code> should be avoided. <code>@Data</code> generates methods that can cause performance and stack overflow issues with JPA:</p>
+<ul>
+    <li>It generates <code>equals()</code> and <code>hashCode()</code> methods that may lead to infinite recursion with bidirectional relationships</li>
+    <li>It creates a <code>toString()</code> method that can trigger lazy loading of all related entities</li>
+    <li>It can cause performance issues with large object graphs</li>
+</ul>
+<p>Instead, use more specific annotations like <code>@Getter</code>, <code>@Setter</code>, and <code>@ToString(exclude = "lazyRelations")</code>.</p>
+
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@Data
+public  class Entity {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
+    @OneToMany
+    private Set&lt;OtherEntity&gt; relation;
+
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Entity {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
+    @OneToMany
+    @ToString.Exclude
+    private Set&lt;OtherEntity&gt; relation;
+
+}
+</pre>
+<h2>See</h2>
+<ul>
+    <li> <a href="https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/#Don8217t_Use_EqualsAndHashCode">Lombok & Hibernate: How to Avoid Common Pitfalls</a> </li>
+</ul>

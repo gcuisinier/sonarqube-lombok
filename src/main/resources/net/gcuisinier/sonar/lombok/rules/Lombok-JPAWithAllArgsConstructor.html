@@ -1,0 +1,49 @@
+<p>Using <code>@Entity</code> with <code>@AllArgsConstructor</code> alone can cause issues with JPA, as JPA requires a default no-args constructor for entity classes.</p>
+<p>When using <code>@AllArgsConstructor</code> on a JPA entity, you must also provide a default constructor, either explicitly or by using <code>@NoArgsConstructor</code>.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@AllArgsConstructor
+public class EntitySample {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class EntitySample {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+}
+</pre>
+<p>Or with an explicit default constructor:</p>
+<pre>
+@Entity
+@AllArgsConstructor
+public class EntitySample {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+    
+    public EntitySample() {
+        // Default constructor for JPA
+    }
+}
+</pre>
+<h2>See</h2>
+<ul>
+    <li><a href="https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#entity-pojo-constructor">Hibernate User Guide - Entity POJO Constructor</a></li>
+    <li><a href="https://projectlombok.org/features/constructor">Lombok Constructor Features</a></li>
+</ul>

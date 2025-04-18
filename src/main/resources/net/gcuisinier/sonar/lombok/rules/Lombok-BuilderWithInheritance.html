@@ -1,0 +1,32 @@
+<p>This rule detects usage of Lombok <code>@Builder</code> annotation in classes that extend another class.</p>
+<p>By default, <code>@Builder</code> doesn't include fields from the parent class, which can lead to incomplete objects being created. Use <code>@SuperBuilder</code> instead when working with inheritance.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+class ParentClass {
+    private String parentField;
+}
+
+@Builder // Noncompliant
+class ChildClass extends ParentClass {
+    private String childField;
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+class ParentClass {
+    private String parentField;
+}
+
+@SuperBuilder
+class ChildClass extends ParentClass {
+    private String childField;
+}
+</pre>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://projectlombok.org/features/Builder">Lombok @Builder documentation</a></li>
+    <li><a href="https://projectlombok.org/features/experimental/SuperBuilder">Lombok @SuperBuilder documentation</a></li>
+</ul>

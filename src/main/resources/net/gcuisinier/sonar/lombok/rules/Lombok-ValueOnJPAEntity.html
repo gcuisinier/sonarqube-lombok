@@ -1,0 +1,35 @@
+<p>This rule detects usage of Lombok <code>@Value</code> annotation in JPA @Entities.</p>
+<p>Using <code>@Value</code> annotation within JPA <code>@Entity</code> should be avoided. <code>@Value</code> generates immutable classes that are incompatible with JPA requirements:</p>
+<ul>
+    <li>It makes all fields <code>private</code> and <code>final</code>, which prevents JPA from setting field values after construction</li>
+    <li>It generates an all-args constructor but no no-args constructor, which JPA requires</li>
+    <li>It makes the class <code>final</code>, preventing proxy creation needed by some JPA implementations</li>
+</ul>
+<p>Instead, use more specific annotations like <code>@Getter</code>, <code>@Setter</code>, and consider <code>@ToString(exclude = "lazyRelations")</code> for better JPA compatibility.</p>
+
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@Value
+public class User {
+    Long id;
+    String name;
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+public class User {
+    @Id
+    private Long id;
+    private String name;
+}
+</pre>
+<h2>See</h2>
+<ul>
+    <li> <a href="https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/">Lombok & Hibernate: How to Avoid Common Pitfalls</a> </li>
+</ul>

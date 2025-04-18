@@ -1,0 +1,103 @@
+<p>Using <code>@Entity</code> with Lombok's <code>@ToString</code> can lead to serious performance issues and infinite recursion errors:</p>
+
+<h3>Main Issues:</h3>
+<ul>
+    <li><strong>Unwanted Lazy Loading:</strong> The toString() call will trigger loading of all relations, including those marked as LAZY, which can significantly impact performance.</li>
+    <li><strong>Circular Dependencies:</strong> With bidirectional relationships (e.g., Parent -> Child and Child -> Parent), toString() can create an infinite loading loop, causing StackOverflowError.</li>
+    <li><strong>Memory Overhead:</strong> For entities with numerous relationships, loading the entire object graph can consume substantial memory.</li>
+</ul>
+
+<p>To avoid these issues, problematic relationships must be excluded from toString generation using <code>@ToString.Exclude</code>. This is particularly crucial for:</p>
+<ul>
+    <li>Relations marked as LAZY</li>
+    <li>Bidirectional relationships</li>
+    <li>Collections of entities (@OneToMany, @ManyToMany)</li>
+</ul>
+
+<p>Note: The <code>@Data</code> annotation includes <code>@ToString</code> functionality and is therefore also affected by these issues.</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+@Entity
+@ToString
+public static class EntityWithOneToManyNonCompliant1 {
+
+    /***********************/
+
+    @OneToMany()
+    private Set&lt;Object&gt; oneToManyNonCompliant; // Noncompliant - Risk of full loading
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set&lt;Object&gt; oneToManyNonCompliant2; // Noncompliant - LAZY loading bypassed
+
+    /***********************/
+    @OneToOne(fetch = FetchType.LAZY)
+    private Object oneToOneNonCompliantAsLazy; // Noncompliant - LAZY loading bypassed
+
+    /***********************/
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Object manyToOneCompliantAsEager; // Noncompliant - Risk of recursion
+
+    /***********************/
+
+    @ManyToMany()
+    private Set&lt;Object&gt; manyToManyNonCompliant;// Noncompliant - Risk of massive loading
+}
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+@Entity
+@ToString
+public static class EntityWithOneToManyCompliant {
+
+    /***********************/
+
+    @OneToMany()
+    @ToString.Exclude // Protect against unwanted loading
+    private Set&lt;Object&gt; oneToManyCompliantAsExcluded;
+
+    @OneToMany(fetch = FetchType.EAGER) // Explicit loading is acceptable if thoughtful and intentionally desired
+    private Set&lt;Object&gt; oneToManyCompliantAsEager;
+
+    /***********************/
+
+    @OneToOne()
+    private Object oneToOneCompliant;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude // Protect LAZY loading
+    private Object OneToOneCompliantAsLazyButExcluded;
+
+    /***********************/
+
+    @ManyToOne()
+    private Object manyToOneNonCompliant;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude // Prevent recursion issues
+    private Object manyToOneCompliantAsExcluded;
+
+    /***********************/
+
+    @ManyToMany()
+    @ToString.Exclude // Protect against massive loading
+    private Set&lt;Object&gt; manyToManyCompliantAsExcluded;
+
+    @ManyToMany(fetch = FetchType.EAGER) // Explicit loading is acceptable
+    private Set&lt;Object&gt; manyToManyCompliantAsEager;
+}
+</pre>
+
+<h2>Best Practices</h2>
+<ul>
+    <li>Always exclude lazy-loaded relationships from toString()</li>
+    <li>Be cautious with bidirectional relationships to prevent infinite recursion</li>
+    <li>Consider using explicit EAGER loading only when necessary</li>
+    <li>For large collections, always use @ToString.Exclude to prevent performance issues</li>
+</ul>
+
+<h2>See</h2>
+<ul>
+    <li><a href="https://thorben-janssen.com/lombok-hibernate-how-to-avoid-common-pitfalls/#Don8217t_Use_EqualsAndHashCode">Lombok & Hibernate: How to Avoid Common Pitfalls</a></li>
+</ul>
